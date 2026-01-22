@@ -9,7 +9,7 @@ from app.api.v1.proofs import router as proof_router
 from app.api.v1.complaints import router as complaint_router
 
 app= FastAPI(
-    title="grienace system",
+    title="GRIEVANCE SYSTEM",
     description="a web application where grievances are closed with whole verification n proofs",
     version="1.0.0"
     
