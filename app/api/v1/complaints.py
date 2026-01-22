@@ -7,6 +7,7 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from app.models.complaint import Complaint,complaintstatus
 from app.api.deps import get_db
+from app.schemas.complaints import complaint_stat_update
 
 
 
@@ -34,18 +35,50 @@ def create_complaint(complaint:complaint_create,db:Session=Depends(get_db)):
         "created_at": new_complaint.created_at
     }
     
-@router.patch("/complaints/{complaint_id}/status", response_model=dict)
+@router.patch("/complaints/{complaint_id}/status")
 def update_complaint_status(
     complaint_id: str,
-    status_update:complaint_stat_update, db: Session = Depends(get_db)):
-    
+    status_update: complaint_stat_update,
+    db: Session = Depends(get_db)
+):
     complaint = db.query(Complaint).filter(Complaint.id == complaint_id).first()
     if not complaint:
         raise HTTPException(status_code=404, detail="Complaint not found")
-    
-    complaint.status = status_update.status
+
+    current_status = complaint.status
+    new_status = status_update.status.value
+
+    print("CURRENT DB STATUS:", current_status)
+    print("REQUESTED STATUS:", new_status)
+
+    allowed_transitions = {
+        complaintstatus.PENDING: [complaintstatus.UNDER_REVIEW],
+        complaintstatus.UNDER_REVIEW: [
+            complaintstatus.VERIFIED,
+            complaintstatus.REJECTED
+        ],
+        complaintstatus.VERIFIED: [complaintstatus.RESOLVED],
+        complaintstatus.RESOLVED: [complaintstatus.CLOSED],
+    }
+
+    if current_status not in allowed_transitions:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid current state: {current_status}"
+        )
+
+    if new_status not in allowed_transitions[current_status]:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Cannot change status from {current_status} to {new_status}"
+        )
+
+    complaint.status = new_status
     db.commit()
     db.refresh(complaint)
-    return {"complaint_id": complaint.id, "status": complaint.status}
-    
-    
+
+    return {
+        "message": "Status updated successfully",
+        "complaint_id": complaint.id,
+        "status": complaint.status
+    }
