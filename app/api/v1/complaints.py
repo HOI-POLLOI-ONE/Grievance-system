@@ -8,7 +8,8 @@ from sqlalchemy.orm import Session
 from app.models.complaint import Complaint,complaintstatus
 from app.api.deps import get_db
 from app.schemas.complaints import complaint_stat_update
-
+from app.api.deps import authority_only
+from app.api.deps import get_current_user
 
 
 router = APIRouter()
@@ -82,3 +83,16 @@ def update_complaint_status(
         "complaint_id": complaint.id,
         "status": complaint.status
     }
+
+@router.get("/complaints", dependencies=[Depends(authority_only)])
+def get_all_complaints(db: Session = Depends(get_db)):
+    return db.query(Complaint).all()
+
+@router.get("/my-complaints")
+def my_complaints(
+    user=Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    return db.query(Complaint).filter(
+        Complaint.user_id == user["user_id"]
+    ).all()

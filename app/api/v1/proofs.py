@@ -20,6 +20,11 @@ def upload_proof(
     proof: UploadFile = File(...),
     db: Session = Depends(get_db)):
     
+    file_path = f"uploads/{proof.filename}"
+
+    with open(file_path, "wb") as f:
+        f.write(proof.file.read())
+    
     allowed_types = ["image/jpeg", "image/png", "application/pdf"]
     if proof.content_type not in allowed_types:
         raise HTTPException(status_code=400, detail="Invalid file type")

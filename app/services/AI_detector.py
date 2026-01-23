@@ -2,10 +2,25 @@ import cv2
 import numpy as np
 from PIL import Image
 import os
+from app.services.geotag import extract_gps
 
 def analyze_proof(file_path: str, category: str):
     score = 0
     reasons = []
+    gps_data = extract_gps(file_path)
+    
+    if gps_data:
+        return {
+            "verdict": "VALID",
+            "confidence": 0.85,
+            "reason": "Image contains GPS geotag metadata"
+        }
+
+    return {
+        "verdict": "UNDER_REVIEW",
+        "confidence": 0.45,
+        "reason": "No GPS metadata found"
+    }
 
 
     if category.lower() == "road pothole":
