@@ -8,6 +8,7 @@ from app.core.jwt import create_access_token
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
+
 @router.post("/register")
 def register(data: RegisterSchema, db: Session = Depends(get_db)):
     if db.query(User).filter(User.email == data.email).first():
@@ -28,14 +29,10 @@ def login(data: LoginSchema, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == data.email).first()
 
     if not user or not verify_password(data.password, user.password):
-        raise HTTPException(401, "Invalid credentials")
+        raise HTTPException(status_code=401, detail="Invalid credentials")
 
     token = create_access_token({
         "user_id": user.id,
-        "role": user.role.value
+        "role": user.role
     })
-
-    return {
-        "access_token": token,
-        "role": user.role.value
-    }
+    return {"access_token": token, "role": user.role}
