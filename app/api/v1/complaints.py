@@ -32,7 +32,7 @@ def create_complaint(complaint:complaint_create,db:Session=Depends(get_db)):
         "description": new_complaint.description,
         "category": new_complaint.category,
         "location": new_complaint.location,
-        "status": new_complaint.status.value,  # Enum -> string
+        "status": new_complaint.status,  
         "created_at": new_complaint.created_at
     }
     

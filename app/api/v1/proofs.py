@@ -6,7 +6,7 @@ from app.models.proof import Proof
 import uuid
 from datetime import datetime
 from app.services.AI_detector import analyze_proof
-
+import os
 
 router = APIRouter(prefix="/complaints", tags=["Proof Upload"])
 
@@ -14,17 +14,20 @@ def run_ai_detection(proof:UploadFile):
     return "FAKE", 0.95
 
 @router.post("/upload-proof")
-def upload_proof(
+async def upload_proof(
     complaint_id: str = Form(...),
     complaint_category: str = Form(...),
     proof: UploadFile = File(...),
     db: Session = Depends(get_db)):
     
-    file_path = f"uploads/{proof.filename}"
+    UPLOAD_DIR = "uploads"
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+    file_path = os.path.join(UPLOAD_DIR, proof.filename)
 
     with open(file_path, "wb") as f:
-        f.write(proof.file.read())
-    
+        f.write(await proof.read())
+
     allowed_types = ["image/jpeg", "image/png", "application/pdf"]
     if proof.content_type not in allowed_types:
         raise HTTPException(status_code=400, detail="Invalid file type")
