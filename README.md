@@ -82,6 +82,9 @@ LokSetu provides a **secure, scalable, and intelligent grievance platform** wher
 
 ![alt text](<Screenshot (18).png>) ![alt text](<Screenshot (19).png>) ![alt text](<Screenshot (20).png>) ![alt text](<Screenshot (21).png>) ![alt text](<Screenshot (22).png>) ![alt text](<Screenshot (24).png>) ![alt text](<Screenshot (25).png>)
 
+### MOCKUP UI
+
+
 
 
 ### Tools
