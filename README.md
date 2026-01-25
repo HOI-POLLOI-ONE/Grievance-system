@@ -66,7 +66,7 @@ LokSetu provides a **secure, scalable, and intelligent grievance platform** wher
 
 * **FastAPI**
 * **SQLAlchemy**
-* **SQLite ***
+* **SQLite**
 * **JWT Authentication**
 * **Passlib (bcrypt)**
 
@@ -82,9 +82,9 @@ LokSetu provides a **secure, scalable, and intelligent grievance platform** wher
 
 ![alt text](<Screenshot (18).png>) ![alt text](<Screenshot (19).png>) ![alt text](<Screenshot (20).png>) ![alt text](<Screenshot (21).png>) ![alt text](<Screenshot (22).png>) ![alt text](<Screenshot (24).png>) ![alt text](<Screenshot (25).png>)
 
-### MOCKUP UI
+### MOCKUP UI ( these are the desired ui!)
 
-
+![alt text](<screen (7).png>) ![alt text](<screen (6).png>) ![alt text](<screen (5).png>) ![alt text](<screen (4).png>) ![alt text](<screen (3).png>) ![alt text](<screen (2).png>) ![alt text](screen.png)
 
 
 ### Tools
@@ -105,10 +105,8 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-Swagger UI:
-
+Swagger UI:http://127.0.0.1:8000/docs
 ```
-http://127.0.0.1:8000/docs
 
 * Open `frontend/index.html` in browser
 * Or use VS Code Live Server for better experience
@@ -134,11 +132,11 @@ http://127.0.0.1:8000
 
 ## MVP Scope
 
-✅ Working authentication
-✅ Database-backed users & complaints
-✅ Role-based dashboards
-✅ Backend-frontend integration
-✅ AI-assisted verification (basic)
+ Working authentication
+ Database-backed users & complaints
+ Role-based dashboards
+ Backend-frontend integration
+ AI-assisted verification (basic)
 
 ---
 
@@ -150,7 +148,7 @@ http://127.0.0.1:8000
 * Advanced AI verification models
 * Mobile app version
  ---
-## 🏁 Conclusion
+## Conclusion
 
 LokSetu is not just a prototype — it is a **functional MVP** that demonstrates how technology, AI, and thoughtful design can transform grievance redressal systems.
 
