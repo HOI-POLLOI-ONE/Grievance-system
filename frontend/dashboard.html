@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>User Dashboard</title>
+  <title>LokSetu | Dashboard</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
 <h2>My Complaints</h2>
-<div id="complaintList"></div>
-<button onclick="logout()">Logout</button>
 
-<div id="complaints"></div>
+<input id="title" placeholder="Complaint title">
+<textarea id="desc" placeholder="Description"></textarea>
+<button onclick="createComplaint()">Submit</button>
+<button id="logoutBtn" class="btn-danger">Logout</button>
+
+<ul id="list"></ul>
+
+<span class="status status-pending">Pending</span>
+<span class="status status-review">Under Review</span>
+<span class="status status-resolved">Resolved</span>
+<span class="status status-closed">Closed</span>
+<span class="status status-rejected">Rejected</span>
+
 
 <script src="js/api.js"></script>
 <script src="js/user.js"></script>

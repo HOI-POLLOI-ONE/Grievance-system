@@ -1,45 +1,45 @@
-function toggleRegister() {
-  document.getElementById("registerForm").classList.toggle("hidden");
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("auth.js loaded");
+
+  const form = document.getElementById("loginForm");
+  console.log("FORM:", form);
+
+  if (!form) {
+    alert("loginForm not found");
+    return;
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    console.log("Login clicked");
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const response = await fetch("http://127.0.0.1:8000/api/v1/auth/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await response.json();
+    console.log("LOGIN RESPONSE:", data);
+
+   if (!response.ok) {
+  alert("Login failed: " + JSON.stringify(data));
+  console.error("STATUS:", response.status, data);
+  return;
 }
 
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
 
-  const email = email.value;
-  const password = password.value;
+    localStorage.setItem("token", data.access_token);
+    localStorage.setItem("role", data.role);
 
-  const res = await fetch(`${BASE_URL}/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password })
+    alert("Login success");
+
+    window.location.href =
+      data.role === "AUTHORITY"
+        ? "authority.html"
+        : "dashboard.html";
   });
-
-  const data = await res.json();
-
-  if (!res.ok) return alert("Login failed");
-
-  localStorage.setItem("token", data.access_token);
-  localStorage.setItem("role", data.role);
-
-  if (data.role === "AUTHORITY") {
-    window.location.href = "authority.html";
-  } else {
-    window.location.href = "dashboard.html";
-  }
-});
-
-document.getElementById("registerForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const email = r_email.value;
-  const password = r_password.value;
-
-  const res = await fetch(`${BASE_URL}/auth/register`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password })
-  });
-
-  if (res.ok) alert("Registered! Please login.");
-  else alert("Registration failed");
 });

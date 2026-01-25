@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LokSetu | Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="card">
+  <h1>LokSetu</h1>
+  <form id="loginForm">
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+    <button onclick="register()">Register</button>
+  </form>
+<div class="auth-card">
+  <h2>Citizen Login</h2>
+  <form id="loginForm">
+    <input id="email" placeholder="Email" required />
+    <input id="password" type="password" placeholder="Password" required />
+    <button class="btn-primary">Login</button>
+  </form>
+</div>
+
+  <p id="msg"></p>
+</div>
+
+<script>
+  if (localStorage.getItem("token")) {
+    const role = localStorage.getItem("role");
+    window.location.href = role === "AUTHORITY"
+      ? "authority.html"
+      : "dashboard.html";
+  }
+</script>
+
+<script src="js/auth.js"></script>
+</body>
+</html>

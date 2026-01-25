@@ -1,8 +1,11 @@
-const BASE_URL = "http://127.0.0.1:8000/api/v1";
+const BASE = "http://127.0.0.1:8000/api/v1";
 
-function authHeader() {
+function authHeaders() {
+  const token = localStorage.getItem("token");
+  if (!token) location.href = "index.html";
+
   return {
-    "Authorization": "Bearer " + localStorage.getItem("token"),
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + token
   };
 }

@@ -1,37 +1,34 @@
-async function loadMyComplaints() {
-  const token = localStorage.getItem("token");
+loadComplaints();
 
-  const response = await fetch(
-    "http://127.0.0.1:8000/api/v1/complaints/my-complaints",
-    {
-      method: "GET",
-      headers: {
-        "Authorization": "Bearer " + localStorage.getItem("token")  
-      }
-    }
-  );
+async function loadComplaints() {
+  const res = await fetch(`${BASE}/complaints/my-complaints`, {
+    headers: authHeaders()
+  });
 
-  if (!response.ok) {
-    alert("Failed to load complaints");
-    return;
-  }
-
-  const complaints = await response.json();
-  console.log(complaints);
-
-  const list = document.getElementById("complaintList");
+  const data = await res.json();
+  const list = document.getElementById("list");
   list.innerHTML = "";
 
-  complaints.forEach(c => {
-    list.innerHTML += `
-      <div class="card">
-        <h3>${c.title}</h3>
-        <p>${c.description}</p>
-        <p>Status: <b>${c.status}</b></p>
-      </div>
-    `;
+  data.forEach(c => {
+    const li = document.createElement("li");
+    li.innerText = `${c.title} — ${c.status}`;
+    list.appendChild(li);
   });
 }
 
+async function createComplaint() {
+  const title = document.getElementById("title").value;
+  const description = document.getElementById("desc").value;
 
-window.onload = loadMyComplaints;
+  await fetch(`${BASE}/complaints`, {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify({ title, description })
+  });
+
+  loadComplaints();
+}
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  localStorage.clear();
+  window.location.href = "index.html";
+});
