@@ -80,23 +80,23 @@ LokSetu provides a **secure, scalable, and intelligent grievance platform** wher
 * SWAGGER UI $ MAIN UI 
 * Note: The current UI is intentionally minimal, as the MVP focuses on validating core functionality and backend integration. UI/UX enhancements are planned in future iterations.
 
-![alt text](<Screenshot (18).png>) 
-![alt text](<Screenshot (19).png>) 
-![alt text](<Screenshot (20).png>) 
-![alt text](<Screenshot (21).png>) 
-![alt text](<Screenshot (22).png>) 
-![alt text](<Screenshot (24).png>) 
-![alt text](<Screenshot (25).png>)
+![alt text for image](<Screenshot (18).png>) 
+![alt text for image](<Screenshot (19).png>) 
+![alt text for image](<Screenshot (20).png>) 
+![alt text for image](<Screenshot (21).png>) 
+![alt text for image](<Screenshot (22).png>) 
+![alt text for image](<Screenshot (24).png>) 
+![alt text for image](<Screenshot (25).png>)
 
 ### MOCKUP UI ( these are the desired ui!)
 
-![alt text](<screen (7).png>) 
-![alt text](<screen (6).png>) 
-![alt text](<screen (5).png>) 
-![alt text](<screen (4).png>) 
-![alt text](<screen (3).png>) 
-![alt text](<screen (2).png>) 
-![alt text](screen.png)
+![alt text for image](<screen (7).png>) 
+![alt text for image ](<screen (6).png>) 
+![alt text for image ](<screen (5).png>) 
+![alt text for image ](<screen (4).png>) 
+![alt text for image ](<screen (3).png>) 
+![alt text for image ](<screen (2).png>) 
+![alt text for image ](screen.png)
 
 
 ### Tools
